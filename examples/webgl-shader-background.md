@@ -1,8 +1,8 @@
 # Prompt — WebGL shader background
 
 A complete prompt for a full-viewport animated shader background rendered with
-Three.js — a single fullscreen quad driven by a fragment shader. Fill the
-brackets and send.
+Three.js — a single fullscreen quad driven by a fragment shader. Cheap, ambient,
+and behind your content. Fill the brackets and send.
 
 ---
 
@@ -24,37 +24,43 @@ APPROACH (required)
 - Drive the effect with a custom ShaderMaterial. Uniforms: uTime (seconds),
   uResolution (vec2), and uColorA/uColorB[/uColorC] for the palette.
 - Keep the fragment shader GLSL simple and readable: use smooth value/gradient
-  math or a small noise function; comment the key lines. No external texture
-  fetches.
+  math or a small noise function (e.g. a compact simplex/value noise); comment
+  the key lines. No external texture fetches.
+- Make the animation tileable in time (loops seamlessly) if it runs
+  indefinitely.
 
 ARCHITECTURE
-- Client Component ('use client'); mount three in useEffect via
-  import('three'); dynamic import('three') to keep it out of the server bundle.
-- The host page loads it with next/dynamic({ ssr: false }); the div carries a
-  CSS gradient in the same palette as the no-WebGL / loading fallback.
+- Client Component ('use client'); mount three in useEffect via a dynamic
+  import('three') to keep it out of the server bundle.
+- The host page loads it with next/dynamic({ ssr: false }); the container div
+  carries a CSS gradient in the same palette as the no-WebGL / loading fallback.
 - aria-hidden on the container; it is decorative only.
 
 CONSTRAINTS
 - Cap pixel ratio at Math.min(window.devicePixelRatio, 2). For a heavy shader,
-  consider rendering at 0.75x resolution and letting CSS scale it up.
+  render at 0.75x resolution and let CSS scale it up (state the trade-off).
 - Update uResolution on resize; keep one requestAnimationFrame loop.
 - Respect prefers-reduced-motion: freeze uTime at a pleasant constant (render a
   single static frame) instead of animating.
 - Pause the loop on document 'visibilitychange' when the tab is hidden.
+- Handle webglcontextlost (preventDefault) -> fall back to the CSS gradient.
 - Full cleanup on unmount: cancelAnimationFrame, remove listeners, dispose
   geometry, material and renderer, remove the canvas.
 
 DELIVERABLE
 One Client Component file (e.g. components/ShaderBackground.tsx) with correct
 TypeScript and the inline vertex + fragment shaders. After the code, note the
-approximate GPU cost and confirm the reduced-motion and no-WebGL fallbacks.
+approximate GPU cost, the resolution scale chosen, and confirm the
+reduced-motion and no-WebGL fallbacks.
 ```
 
 ---
 
 **Tips**
 
-- Ask for the shader to be *tileable in time* (loops seamlessly) if it will run
-  indefinitely.
 - If text sits on top, tell it the text colour so it can keep contrast within
   the animated range (WCAG AA against both the lightest and darkest frames).
+- Value/gradient noise is cheaper than layered fBm — if the background is meant
+  to be subtle, ask for the cheapest thing that reads well, not the fanciest.
+- A shader background is often the right choice *instead of* a 3D hero when you
+  want ambience without payload: no models, no lights, one draw call.
