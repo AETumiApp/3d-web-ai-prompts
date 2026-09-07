@@ -85,10 +85,9 @@ Good prompts should:
 
 ## Repository status
 
-Documentation-first. Prompt examples will be organized by real implementation intent instead of dumping a long undifferentiated prompt list.
+Active. Runnable, production-oriented examples now live in [`examples/`](./examples/) — reviewed for performance (adaptive quality), accessibility, reduced-motion and non-WebGL fallbacks, and clean resource disposal. The set is refined and extended as new patterns land.
 
 See [examples/README.md](./examples/README.md).
-
 ## About AETumi
 
 AETumi helps designers, developers and agencies turn ideas into interactive 3D web experiences using Three.js, WebGL, Next.js, React, React Three Fiber and AI coding workflows.
