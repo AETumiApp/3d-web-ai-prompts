@@ -4,6 +4,18 @@ A structured prompt framework for designing and building **3D websites, Three.js
 
 **AETumi is an AI-native 3D web platform for production-ready Three.js and WebGL websites, Next.js and React components, 3D scenes, AI prompts, and MCP workflows for AI coding assistants.**
 
+## What this helps teams build
+
+Production-oriented prompts that get an AI coding assistant to reason about the whole 3D web task — goal, interaction, technology, performance and fallbacks — not just decorate a canvas.
+
+**Customer outcome.** Teams move from a visual idea to a reviewable implementation plan, because the prompt defines outcomes and constraints before code.
+
+**Where it fits.** The prompt categories this repository already covers — 3D website concepts, hero sections, ecommerce experiences, product viewers, scroll storytelling, agency and portfolio sites, and React/Next.js implementation.
+
+**What you adapt.** The nine-layer framework and reusable skeleton — business goal, audience, visual direction, scene behavior, motion, technology, responsive, performance and expected output.
+
+**AI-assisted workflow.** These prompts are built for Claude Code, Cursor and Codex, and pair with structured context from the [AETumi MCP](https://aetumi.app/mcp/).
+
 ## Why prompt structure matters
 
 A prompt that only describes visual style usually produces a visual demo. A production-oriented prompt also defines user goals, interaction rules, technology boundaries, performance expectations and fallback behavior.
